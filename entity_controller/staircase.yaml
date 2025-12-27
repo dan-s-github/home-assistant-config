@@ -5,8 +5,7 @@ staircase_motion:
   sensor_resets_timer: true
   entity: light.stairs_handrail
   delay: 45
-  overrides:
-    - group.staircase_motion_override
+  override: group.staircase_motion_override
   service_data:
     brightness: 60
   night_mode:

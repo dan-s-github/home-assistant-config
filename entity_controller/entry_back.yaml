@@ -5,8 +5,7 @@ entry_back_motion:
   sensor_resets_timer: true
   entity: light.entry_back_downlight
   delay: 30
-  overrides:
-    - group.entry_back_motion_override
+  override: group.entry_back_motion_override
   service_data:
     brightness: 80
   night_mode:

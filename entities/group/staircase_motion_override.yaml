@@ -8,4 +8,4 @@ name: "EC: Staircase motion override"
 #unique_id: "31f13962-b2c9-49db-8cf2-489885056157"
 entities:
   - input_boolean.staircase_motion_disabled
-  - input_boolean.outdoor_brigthness_gt_100
+  - input_boolean.outdoor_brigthness_gt_300

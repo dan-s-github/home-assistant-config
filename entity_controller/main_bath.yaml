@@ -5,8 +5,7 @@ main_bathroom_motion:
   sensor_resets_timer: true
   entity: light.main_bath_vanity
   delay: 120
-  overrides:
-    - group.main_bathroom_motion_override
+  override: group.main_bathroom_motion_override
   service_data:
     brightness: 200
   night_mode:

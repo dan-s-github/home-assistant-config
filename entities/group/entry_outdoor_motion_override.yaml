@@ -8,4 +8,4 @@ name: "EC: Entry outdoor motion override"
 #unique_id: "86542115-2fa3-4d27-a47f-e15da7e03bad"
 entities:
   - input_boolean.entry_outdoor_motion_disabled
-  - input_boolean.outdoor_brigthness_gt_100
+  - input_boolean.outdoor_brigthness_gt_300

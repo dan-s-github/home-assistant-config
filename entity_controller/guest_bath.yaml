@@ -5,8 +5,7 @@ guest_bathroom_motion:
   sensor_resets_timer: true
   entity: light.guest_bath_downlights
   delay: 120
-  overrides:
-    - group.guest_bathroom_motion_override
+  override: group.guest_bathroom_motion_override
   service_data:
     brightness: 230
   night_mode:

@@ -8,4 +8,4 @@ name: "EC: Pantry motion override"
 #unique_id: "fddf0b52-28ac-4fdc-88ce-cbc2afb033f0"
 entities:
   - input_boolean.pantry_motion_disabled
-  - input_boolean.outdoor_brigthness_gt_300
+  - input_boolean.outdoor_brigthness_gt_900

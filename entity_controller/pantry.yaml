@@ -5,8 +5,7 @@ pantry_motion:
   sensor_resets_timer: true
   entity: light.pantry_downlights
   delay: 20
-  overrides:
-    - group.pantry_motion_override
+  override: group.pantry_motion_override
   service_data:
     brightness: 200
   night_mode:

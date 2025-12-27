@@ -5,8 +5,7 @@ storage_motion:
   sensor_resets_timer: true
   entity: light.storage_downlights
   delay: 20
-  overrides:
-    - group.storage_motion_override
+  override: group.storage_motion_override
   service_data:
     brightness: 100
   night_mode:

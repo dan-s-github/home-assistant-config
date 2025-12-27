@@ -5,8 +5,7 @@ laundry_motion:
   sensor_resets_timer: true
   entity: light.laundry_downlights
   delay: 60
-  overrides:
-    - group.laundry_motion_override
+  override: group.laundry_motion_override
   service_data:
     brightness: 255
 #  night_mode:

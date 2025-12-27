@@ -9,4 +9,4 @@ name: "EC: Main bathroom motion override"
 entities:
   - input_boolean.main_bathroom_motion_disabled
   - input_boolean.motion_sensor_main_bathroom_disabled
-  - input_boolean.outdoor_brigthness_gt_300
+  - input_boolean.outdoor_brigthness_gt_900

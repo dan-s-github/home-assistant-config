@@ -5,8 +5,7 @@ utility_motion:
   sensor_resets_timer: true
   entity: light.utility_downlights
   delay: 20
-  overrides:
-    - group.utility_motion_override
+  override: group.utility_motion_override
   service_data:
     brightness: 200
   night_mode:

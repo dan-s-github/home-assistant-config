@@ -7,7 +7,6 @@ entry_outdoor:
   sensor_resets_timer: true
   entity: light.entry_outdoor
   delay: 120
-  overrides:
-    - group.entry_outdoor_motion_override
+  override: group.entry_outdoor_motion_override
   service_data:
     brightness: 255

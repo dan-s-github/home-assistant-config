@@ -8,4 +8,4 @@ name: "EC: Entry back motion override"
 #unique_id: "ccdef0cf-42d8-4e02-85b7-8786eea79f5c"
 entities:
   - input_boolean.entry_back_motion_disabled
-  - input_boolean.outdoor_brigthness_gt_200
+  - input_boolean.outdoor_brigthness_gt_600
