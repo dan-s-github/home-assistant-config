@@ -13,6 +13,7 @@ packages:
   remote_package:
     url: https://github.com/dan-s-github/centurion-d5-evo
     ref: main
+    refresh: 5min
     files: 
       - packages/diagnostics.yml
       - packages/gate_control.yml
