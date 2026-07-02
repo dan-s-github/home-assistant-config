@@ -1,0 +1,25 @@
+esphome:
+  name: zehnder-comfoair-can
+  friendly_name: Zehnder ComfoAir CAN
+
+# Replace this with your actual platform if you aren't using ESP32.
+esp32:
+  board: esp32dev
+
+logger:
+
+api:
+  encryption:
+    key: "P7qfcYBmTw29qNb7ZjQ6N5vpuurUHRHyDvtzFO+WoJ4="
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: Zehnder ComfoAi Fallback Hotspot
+    password: "IKXfelRZrrzO"
+
+captive_portal:
