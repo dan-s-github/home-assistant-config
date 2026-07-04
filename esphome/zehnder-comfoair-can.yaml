@@ -37,8 +37,8 @@ esp32:
   variant: esp32
   framework:
     type: esp-idf
-    # advanced:
-      # sram1_as_iram: true
+    advanced:
+      sram1_as_iram: true
 
 # Enable logging
 logger:
