@@ -30,7 +30,7 @@ external_components:
 
 select:
   platform: logger
-  name: Level
+  name: "Log level"
     
 crow_alarm_panel:
   clock_pin: GPIO7
