@@ -15,19 +15,15 @@ esp32:
     type: esp-idf
 
 logger:
-  level: VERBOSE
+  level: DEBUG
   initial_level: INFO
   logs:
-    crow_alarm_panel: VERBOSE
-
-   
+    crow_alarm_panel: DEBUG
+    
 external_components:
   - components: [crow_alarm_panel]
-    source: github://dan-s-github/esphome-components@dan-dev
-    # source:
-    #   type: git
-    #   url: https://github.com/dan-s-github/esphome-components
-    #   ref: dan-dev
+    source: github://dan-s-github/esphome-components
+    # source: github://dan-s-github/esphome-components@dan-dev
     refresh: 1min
      
 crow_alarm_panel:
