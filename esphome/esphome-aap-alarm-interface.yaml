@@ -15,11 +15,10 @@ esp32:
     type: esp-idf
 
 logger:
-  level: DEBUG
+  level: VERBOSE
   initial_level: INFO
   logs:
-    crow_alarm_panel: DEBUG
-
+    crow_alarm_panel: VERBOSE
 external_components:
   - components: [crow_alarm_panel]
     source: github://dan-s-github/esphome-components
