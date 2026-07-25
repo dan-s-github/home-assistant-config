@@ -19,6 +19,7 @@ logger:
   initial_level: INFO
   logs:
     crow_alarm_panel: VERBOSE
+    
 external_components:
   - components: [crow_alarm_panel]
     source: github://dan-s-github/esphome-components
