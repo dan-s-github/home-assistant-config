@@ -29,10 +29,6 @@ external_components:
     #   url: https://github.com/dan-s-github/esphome-components
     #   ref: dan-dev
     refresh: 1min
-
-select:
-  - platform: logger
-    name: "Logger select"
      
 crow_alarm_panel:
   clock_pin: GPIO7
