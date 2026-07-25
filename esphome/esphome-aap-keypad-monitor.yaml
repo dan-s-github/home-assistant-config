@@ -22,15 +22,17 @@ logger:
  
 external_components:
   - components: [crow_alarm_panel]
-    source: github://dan-s-github/esphome-components
-    # source:
-    #   type: git
-    #   url: https://github.com/dan-s-github/esphome-components
-    #   ref: main
-
+    # source: github://dan-s-github/esphome-components
+    source: github://dan-s-github/esphome-components@dan-dev
+ 
 select:
   platform: logger
   name: "Log level"
+
+switch:
+  - platform: crow_alarm_panel
+    type: log_raw_frames
+    name: "Raw Frame Logging"  
     
 crow_alarm_panel:
   clock_pin: GPIO7
