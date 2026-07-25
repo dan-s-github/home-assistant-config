@@ -22,7 +22,7 @@ logger:
     
 external_components:
   - components: [crow_alarm_panel]
-    source: github://dan-s-github/esphome-components
+    source: github://dan-s-github/esphome-components@dan-dev
     # source:
     #   type: git
     #   url: https://github.com/dan-s-github/esphome-components
