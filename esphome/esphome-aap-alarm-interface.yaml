@@ -19,7 +19,8 @@ logger:
   initial_level: INFO
   logs:
     crow_alarm_panel: VERBOSE
-    
+
+   
 external_components:
   - components: [crow_alarm_panel]
     source: github://dan-s-github/esphome-components@dan-dev
@@ -29,6 +30,10 @@ external_components:
     #   ref: dan-dev
     refresh: 1min
 
+select:
+  - platform: logger
+    name: "Logger select"
+     
 crow_alarm_panel:
   clock_pin: GPIO7
   data_pin: GPIO5
