@@ -27,7 +27,7 @@ external_components:
     #   type: git
     #   url: https://github.com/dan-s-github/esphome-components
     #   ref: dan-dev
-    # refresh: 1min
+    refresh: 1min
 
 crow_alarm_panel:
   clock_pin: GPIO7
