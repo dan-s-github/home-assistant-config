@@ -17,8 +17,8 @@ esp32:
 logger:
   level: VERBOSE
   initial_level: INFO
-  logs:
-    crow_alarm_panel: VERBOSE
+  # logs:
+  #   crow_alarm_panel: VERBOSE
  
 external_components:
   - components: [crow_alarm_panel]
