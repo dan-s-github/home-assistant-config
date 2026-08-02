@@ -22,8 +22,8 @@ logger:
  
 external_components:
   - components: [crow_alarm_panel]
-    source: github://dan-s-github/esphome-components
-    # source: github://dan-s-github/esphome-components@dan-dev
+    # source: github://dan-s-github/esphome-components
+    source: github://dan-s-github/esphome-components@dan-dev
     refresh: 1min
  
 select:
@@ -34,6 +34,11 @@ switch:
   - platform: crow_alarm_panel
     type: log_raw_frames
     name: "Raw Frame Logging"  
+# Toggles ISR-side raw bit trace: batched DAT bitstream (post glitch-filter), logged
+  # at INFO once a 128-bit buffer fills. Diagnostic aid for framing/glitch issues.
+  - platform: crow_alarm_panel
+    type: log_raw_bits
+    name: "Raw Bit Trace"
     
 crow_alarm_panel:
   clock_pin: GPIO7
