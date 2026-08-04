@@ -25,7 +25,11 @@ external_components:
     # source: github://dan-s-github/esphome-components
     source: github://dan-s-github/esphome-components@dan-dev
     refresh: 1min
-     
+
+select:
+  platform: logger
+  name: "Log level"
+    
 crow_alarm_panel:
   clock_pin: GPIO7
   data_pin: GPIO5
