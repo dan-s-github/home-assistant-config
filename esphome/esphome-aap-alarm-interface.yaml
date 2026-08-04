@@ -111,6 +111,11 @@ switch:
     type: output
     output: 4
     name: "Garage Door"
+  # Toggles ISR-side raw bit trace: batched DAT bitstream (post glitch-filter), logged
+  # at INFO once a 128-bit buffer fills. Diagnostic aid for framing/glitch issues.
+  - platform: crow_alarm_panel
+    type: log_raw_bits
+    name: "Raw Bit Trace"
 
 api:
   encryption:
