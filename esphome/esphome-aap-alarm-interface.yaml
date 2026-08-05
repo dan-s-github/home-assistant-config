@@ -33,7 +33,7 @@ select:
 crow_alarm_panel:
   clock_pin: GPIO7
   data_pin: GPIO5
-  # address: 5
+  address: 5
   code: !secret alarm_code
 
   keypads:
