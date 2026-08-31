@@ -139,8 +139,3 @@ wifi:
     password: !secret fallback_hotspot_password
 
 captive_portal:
-
-esp32_improv:
-  authorizer: none
-
-web_server:
