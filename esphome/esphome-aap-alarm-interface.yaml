@@ -17,8 +17,8 @@ esp32:
 logger:
   level: DEBUG
   initial_level: INFO
-  # logs:
-  #   crow_alarm_panel: DEBUG
+  logs:
+    crow_alarm_panel: DEBUG
     
 external_components:
   - components: [crow_alarm_panel]
