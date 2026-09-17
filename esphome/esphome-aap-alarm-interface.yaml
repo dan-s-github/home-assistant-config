@@ -127,6 +127,7 @@ api:
 
 ota:
   platform: esphome
+  encryption:
 
 improv_serial:
 
