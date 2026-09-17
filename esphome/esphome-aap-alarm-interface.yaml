@@ -43,8 +43,8 @@ crow_alarm_panel:
       address: 5
     - name: "Control 4 Keypad"
       address: 6
-    - name: "IP Keypad"
-      address: 7
+    # - name: "IP Keypad"
+    #   address: 7
 
   zones:
     - zone: 1
