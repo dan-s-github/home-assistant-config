@@ -68,6 +68,7 @@ api:
 # Allow Over-The-Air updates
 ota:
   platform: esphome
+  encryption:
 
 wifi:
   ssid: !secret iot_ssid
