@@ -22,8 +22,8 @@ logger:
     
 external_components:
   - components: [crow_alarm_panel]
-    source: github://dan-s-github/esphome-components
-    # source: github://dan-s-github/esphome-components@dan-dev
+    # source: github://dan-s-github/esphome-components
+    source: github://dan-s-github/esphome-components@dan-dev
     refresh: 1min
 
 select:
@@ -88,6 +88,14 @@ alarm_control_panel:
     name: "ESPHome AAP Alarm Panel"
     requires_code_to_arm: false
 
+binary_sensor:
+  - platform: crow_alarm_panel
+    name: "Trouble"
+    type: trouble
+
+  - platform: crow_alarm_panel
+    name: "Trouble Latched"
+    type: trouble_latched
 button:
   - platform: crow_alarm_panel
     type: arm_away
