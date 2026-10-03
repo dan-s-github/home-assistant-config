@@ -96,6 +96,7 @@ binary_sensor:
   - platform: crow_alarm_panel
     name: "Trouble Latched"
     type: trouble_latched
+    
 button:
   - platform: crow_alarm_panel
     type: arm_away
