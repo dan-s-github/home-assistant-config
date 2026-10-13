@@ -23,7 +23,8 @@ logger:
 external_components:
   - components: [crow_alarm_panel]
     # source: github://dan-s-github/esphome-components
-    source: github://dan-s-github/esphome-components@dan-dev
+    # source: github://dan-s-github/esphome-components@dan-dev
+    source: github://dan-s-github/esphome-components@fix/output-select-reliability
     refresh: 1min
 
 select:
