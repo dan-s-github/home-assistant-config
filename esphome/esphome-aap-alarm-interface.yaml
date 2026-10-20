@@ -140,7 +140,7 @@ switch:
 
 api:
   encryption:
-    key: !secret api_encryption_key
+    key: !secret esphome_aap_alarm_interface_api_key
 
 ota:
   platform: esphome
