@@ -38,7 +38,7 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "5wqUYCw5MwKhuU/c7KL2+JCCe9JIe57CmTuhYhQ/BYM="
+    key: !secret centurion_d5_evo_api_key
 
 # Allow Over-The-Air updates
 ota:
