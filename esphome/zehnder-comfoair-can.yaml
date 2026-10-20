@@ -63,7 +63,7 @@ zehnder_comfoair_q:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "TUVw7zZSA/WDeNigYtLF9hVaNXU4g6GOWrkF2RnZYDw="
+    key: !secret zehnder_comfoair_can_api_key
 
 # Allow Over-The-Air updates
 ota:
