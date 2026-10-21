@@ -25,9 +25,11 @@ esphome:
   name_add_mac_suffix: false
 
 esp32:
-  board: esp32dev
+  variant: esp32
   framework:
-    type: arduino
+    type: esp-idf
+    advanced:
+      minimum_chip_revision: '3.1'
 
 # Enable logging
 logger:
@@ -36,15 +38,23 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "5wqUYCw5MwKhuU/c7KL2+JCCe9JIe57CmTuhYhQ/BYM="
+    key: !secret centurion_d5_evo_api_key
 
 # Allow Over-The-Air updates
 ota:
   platform: esphome 
+  encryption:
   
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+  ssid: !secret iot_ssid
+  password: !secret iot_password
+  # manual_ip: 
+  # Set this to the IP of the ESP
+    # static_ip: 192.168.17.233
+    # Set this to the IP address of the router. Often ends with .1
+    # gateway: 192.168.17.1
+    # The subnet of the network. 255.255.255.0 works for most home networks.
+    # subnet: 255.255.255.0
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
