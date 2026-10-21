@@ -9,18 +9,12 @@ logger:
     homeassistant.components.bluetooth: info
     homeassistant.components.esphome: info
 
-    # AAP Alarm Module
-    custom_components.crowipmodule: info
-
     # iTouch2 Spa integration
     #custom_components.gecko: debug
     #geckolib: debug
 
     # entity controller
     custom_components.entity_controller: info
-
-    # ble monitor
-    custom_components.ble_monitor: info
 
     # Hikvision NEXT
     custom_components.hikvision_next: info
