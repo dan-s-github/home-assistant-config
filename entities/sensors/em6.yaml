@@ -1,6 +1,0 @@
----
-#
-# https://github.com/codyc1515/ha-em6
-#
-- platform: em6
-  location: Auckland
