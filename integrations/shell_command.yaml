@@ -1,6 +1,0 @@
----
-#
-# https://www.home-assistant.io/integrations/shell_command/
-#
-shell_command:
-  update_ddns: !secret update_ddns_curl
