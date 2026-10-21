@@ -7,6 +7,7 @@ logger:
   logs:
     # HA Components
     homeassistant.components.bluetooth: info
+    homeassistant.components.esphome: info
 
     # AAP Alarm Module
     custom_components.crowipmodule: info
@@ -16,10 +17,10 @@ logger:
     #geckolib: debug
 
     # entity controller
-    custom_components.entity_controller: warning
+    custom_components.entity_controller: info
 
     # ble monitor
-    custom_components.ble_monitor: warning
+    custom_components.ble_monitor: info
 
     # Hikvision NEXT
     custom_components.hikvision_next: info
@@ -27,3 +28,12 @@ logger:
     # AlphaESS
     custom_components.alphaess: info
     alphaess.alphaess: info
+
+    # Triad AMS
+    custom_components.triad_ams: info
+
+    # Tuya local
+    custom_components.tuya_local: debug
+
+    # Watercare
+    #custom_components.watercare: debug
