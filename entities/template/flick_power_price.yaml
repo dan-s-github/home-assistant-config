@@ -1,4 +1,0 @@
-sensor:
-  - name: "Flick Power Price NZD"
-    unit_of_measurement: "NZD/kWh"
-    state: "{{ (states('sensor.flick_power_price') | float / 100) }}"

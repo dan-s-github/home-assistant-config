@@ -1,0 +1,5 @@
+- binary_sensor:
+    - name: "Crow Mains Power Sensor"
+      unique_id: "25acfddb-1bc3-41d9-9c23-111d977dd0f2"
+      state: >
+        {{ state_attr('sensor.crow_alarm_system', 'mains') }}

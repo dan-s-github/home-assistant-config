@@ -1,0 +1,11 @@
+---
+# Input boolean group: Entry motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Entry motion override"
+#unique_id: "7c206d3b-e7a7-4686-a85e-404f52896dee"
+entities:
+  - input_boolean.entry_motion_disabled
+  - input_boolean.outdoor_brigthness_gt_900

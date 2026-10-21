@@ -1,0 +1,11 @@
+---
+# Input boolean group: Staircase motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Staircase motion override"
+#unique_id: "31f13962-b2c9-49db-8cf2-489885056157"
+entities:
+  - input_boolean.staircase_motion_disabled
+  - input_boolean.outdoor_brigthness_gt_300

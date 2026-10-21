@@ -2,34 +2,9 @@
 - name: Strip Entry Hallway
   address: 0/1/218
   state_address: 0/1/221
-  brightness_address: 0/1/220
-  brightness_state_address: 0/1/222
+  #  brightness_address: 0/1/220
+  #  brightness_state_address: 0/1/222
+  #  rgbw_address: 0/1/223
+  #  rgbw_state_address: 0/1/224
   xyy_address: 0/1/223
   xyy_state_address: 0/1/224
-#  address: 2/2/13
-#  individual_colors:
-#    red:
-#      address: 0/1/186
-#      state_address: 0/1/187
-#      brightness_address: 0/1/189
-#      brightness_state_address: 0/1/190
-#    green:
-#      address: 0/1/191
-#      state_address: 0/1/192
-#      brightness_address: 0/1/194
-#      brightness_state_address: 0/1/195
-#    blue:
-#      address: 0/1/196
-#      state_address: 0/1/197
-#      brightness_address: 0/1/199
-#      brightness_state_address: 0/1/200
-#    white:
-#      address: 0/1/201
-#      state_address: 0/1/202
-#      brightness_address: 0/1/204
-#      brightness_state_address: 0/1/205
-#- name: Strip Entry Hallway Warm White
-#  address: 0/1/206
-#  state_address: 0/1/207
-#  brightness_address: 0/1/209
-#  brightness_state_address: 0/1/210

@@ -1,0 +1,10 @@
+---
+# Input boolean group: Attic motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Attic motion override"
+#unique_id: "46e2adb0-65eb-4cb0-89e9-1323ca24b288"
+entities:
+  - input_boolean.attic_motion_disabled

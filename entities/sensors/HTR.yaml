@@ -1,9 +1,0 @@
----
-- platform: template
-  sensors:
-    htr_on_count:
-      friendly_name: "HTR on count"
-      value_template: >
-        {{ expand('switch.grp_heated_towel_rails')
-        | selectattr('state', 'eq', 'on')
-        | list | count }}

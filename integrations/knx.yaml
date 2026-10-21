@@ -1,11 +1,11 @@
 ---
 knx:
-  binary_sensor: !include_dir_merge_list ../knx/binary_sensor/
-  cover: !include_dir_merge_list ../knx/cover/
-  climate: !include_dir_merge_list ../knx/climate/
-  expose: !include_dir_merge_list ../knx/expose/
-  light: !include_dir_merge_list ../knx/light/
-  number: !include_dir_merge_list ../knx/number/
-  sensor: !include_dir_merge_list ../knx/sensor/
-  switch: !include_dir_merge_list ../knx/switch/
-  weather: !include_dir_merge_list ../knx/weather/
+  binary_sensor: !include_dir_merge_list ../knx/binary_sensor
+  cover: !include_dir_merge_list ../knx/cover
+  climate: !include_dir_merge_list ../knx/climate
+  expose: !include_dir_merge_list ../knx/expose
+  light: !include_dir_merge_list ../knx/light
+  number: !include_dir_merge_list ../knx/number
+  sensor: !include_dir_merge_list ../knx/sensor
+  switch: !include_dir_merge_list ../knx/switch
+  # weather: !include_dir_merge_list ../knx/weather/

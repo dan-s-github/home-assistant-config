@@ -1,0 +1,10 @@
+---
+# Input boolean group: Guest bathroom motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Guest bathroom motion override"
+#unique_id: "d7342f7a-ad33-47cb-996c-e399bdb5b8b9"
+entities:
+  - input_boolean.guest_bathroom_motion_disabled

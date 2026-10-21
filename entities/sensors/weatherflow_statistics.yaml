@@ -1,0 +1,18 @@
+---
+- platform: statistics
+  unique_id: "14906f45-a2a2-464b-9d35-4f96d1012ff2"
+  name: "Rain last hour"
+  entity_id: sensor.st_00127484_precipitation
+  state_characteristic: sum
+  max_age:
+    hours: 1
+  sampling_size: 120
+
+- platform: statistics
+  unique_id: "e2563c7c-8e69-487d-81b0-6623e4a44ff0"
+  name: "Rain last 4 hour"
+  entity_id: sensor.st_00127484_precipitation
+  state_characteristic: sum
+  max_age:
+    hours: 4
+  sampling_size: 480

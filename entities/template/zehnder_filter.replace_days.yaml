@@ -1,0 +1,4 @@
+- sensor:
+    - name: "Zehnder Filter replace in days"
+      unit_of_measurement: "d"
+      state: "{{ (states('sensor.zehnder_filter_replace') | int(24) / 24) | round }}"

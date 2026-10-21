@@ -1,0 +1,11 @@
+---
+# Input boolean group: Utility motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Utility motion override"
+#unique_id: "5b378c7c-38be-46c8-8650-1a91c427a40d"
+entities:
+  - input_boolean.utility_motion_disabled
+

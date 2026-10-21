@@ -1,33 +1,10 @@
 ---
 - name: Strip Hallway
-  individual_colors:
-    red:
-      address: 0/2/186
-      state_address: 0/2/187
-      brightness_address: 0/2/189
-      brightness_state_address: 0/2/190
-    green:
-      address: 0/2/191
-      state_address: 0/2/192
-      brightness_address: 0/2/194
-      brightness_state_address: 0/2/195
-    blue:
-      address: 0/2/196
-      state_address: 0/2/197
-      brightness_address: 0/2/199
-      brightness_state_address: 0/2/200
-    white:
-      address: 0/2/201
-      state_address: 0/2/202
-      brightness_address: 0/2/204
-      brightness_state_address: 0/2/205
-#    warm-white:
-#      address: 0/2/206
-#      state_address: 0/2/207
-#      brightness_address: 0/2/209
-#      brightness_state_address: 0/2/210
-- name: Strip Hallway Warm White
-  address: 0/2/206
-  state_address: 0/2/207
-  brightness_address: 0/2/209
-  brightness_state_address: 0/2/210
+  address: 0/1/225
+  state_address: 0/1/228
+  #. brightness_address: 0/1/227
+  #  brightness_state_address: 0/1/229
+  #  rgbw_address: 0/1/230
+  #  rgbw_state_address: 0/1/231
+  xyy_address: 0/1/230
+  xyy_state_address: 0/1/231

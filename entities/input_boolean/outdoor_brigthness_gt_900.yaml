@@ -1,0 +1,4 @@
+# Input boolean: Outdoor brigthness over 900 lux
+#
+# This boolean can be used to disable automations
+name: "Outdoor brigthness 900+ lux"

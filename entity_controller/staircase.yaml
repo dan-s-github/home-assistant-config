@@ -4,14 +4,12 @@ staircase_motion:
   sensor_type: duration
   sensor_resets_timer: true
   entity: light.stairs_handrail
-  delay: 30
-  overrides:
-    - input_boolean.staircase_motion_disabled
-    - input_boolean.outdoor_brigthness_gt_100
+  delay: 45
+  override: group.staircase_motion_override
   service_data:
     brightness: 60
   night_mode:
-    delay: 30
+    delay: 45
     service_data:
       brightness: 45
     start_time: "23:00:00" # required

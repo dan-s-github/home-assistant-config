@@ -1,0 +1,330 @@
+---
+- trigger:
+    - trigger: time_pattern
+      minutes: "/15"
+  action:
+    - action: weather.get_forecasts
+      target:
+        entity_id:
+          - weather.forecast_66_whitney
+      data:
+        type: hourly
+      response_variable: hourly
+    - variables:
+        forecast: "{{ hourly['weather.forecast_66_whitney'].forecast }}"
+
+  binary_sensor:
+    - name: weatherflow_forecast_show_precip
+      unique_id: "f8becc87-f54e-453b-88eb-1e51c45bf2cc"
+      state: >
+        {{ (forecast[0].precipitation_probability | int(0) +
+            forecast[1].precipitation_probability | int(0) +
+            forecast[2].precipitation_probability | int(0) +
+            forecast[3].precipitation_probability | int(0) +
+            forecast[4].precipitation_probability | int(0) +
+            forecast[5].precipitation_probability | int(0) +
+            forecast[6].precipitation_probability | int(0) +
+            forecast[7].precipitation_probability | int(0) +
+            forecast[8].precipitation_probability | int(0) +
+            forecast[9].precipitation_probability | int(0) +
+            forecast[10].precipitation_probability | int(0) +
+            forecast[11].precipitation_probability | int(0) +
+            forecast[12].precipitation_probability | int(0) ) > 0 }}
+
+  sensor:
+    - name: weatherflow_hourly
+      unique_id: weather_forecast_hourly
+      state: "{{ now().isoformat() }}"
+      attributes:
+        forecast: "{{ forecast }}"
+
+    - name: weatherflow_forecast_0
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[0].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[0].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[0].precipitation | float(0) + forecast[1].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[0].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[0].condition] %}
+        mdi:weather-{{ icon }}
+
+    #    - name: weatherflow_forecast_0_precip
+    #      state: "{{ state_attr( sensor.weatherflow_forecast_0, precip_value) | float(0) }}"
+
+    - name: weatherflow_forecast_1
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[2].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[2].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[2].precipitation | float(0) + forecast[3].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[2].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[2].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_2
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[4].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[4].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[4].precipitation | float(0) + forecast[5].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[4].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[4].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_3
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[6].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[6].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[6].precipitation | float(0) + forecast[7].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[6].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[6].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_4
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[8].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[8].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[8].precipitation | float(0) + forecast[9].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[8].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[8].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_5
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[10].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[10].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[10].precipitation | float(0) + forecast[11].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[10].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[10].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_6
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[12].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[12].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[12].precipitation | float(0) + forecast[13].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[12].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[12].condition] %}
+        mdi:weather-{{ icon }}
+
+    - name: weatherflow_forecast_7
+      attributes:
+        slot_time: >-
+          {% set time =  forecast[14].datetime | as_datetime | as_local | default(0,true) %}
+          {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
+        precip: "{{ forecast[14].precipitation_probability }}%"
+        precip_value: >-
+          {% set amt = forecast[14].precipitation | float(0) + forecast[15].precipitation | float(0) %}
+          {% set amt = (amt * 100) | int(0) %}
+          {% if amt > 0 %}
+            {% if amt < 100 %}.{{amt}}
+            {% else %}{{ amt / 100 }}
+            {% endif %}
+          {% else %}0
+          {% endif %}
+      unit_of_measurement: °
+      state: "{{ forecast[14].temperature | int(0) }}"
+      icon: >
+        {% set array = { 'clear-night':'night',
+                          'cloudy':'cloudy',
+                          'exceptional':'sunny',
+                          'fog':'fog',
+                          'hail':'hail',
+                          'lightning':'lightning',
+                          'lightning-rainy':'lightning-rainy',
+                          'partlycloudy':'partly-cloudy',
+                          'rainy':'rainy',
+                          'snowy':'snowy',
+                          'snowy-rainy':'snowy-rainy',
+                          'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
+                          'windy':'windy' } %}
+        {% set icon = array[forecast[14].condition] %}
+        mdi:weather-{{ icon }}

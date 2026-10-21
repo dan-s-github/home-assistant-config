@@ -5,9 +5,7 @@ wardrobe_motion:
   sensor_resets_timer: true
   entity: light.wardrobe_downlights
   delay: 30
-  overrides:
-    - input_boolean.wardrobe_motion_disabled
-    - input_boolean.outdoor_brigthness_gt_200
+  override: group.wardrobe_motion_override
   service_data:
     brightness: 200
   night_mode:

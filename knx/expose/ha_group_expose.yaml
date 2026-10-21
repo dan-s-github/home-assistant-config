@@ -23,3 +23,24 @@
 - type: binary
   entity_id: input_boolean.keypad_mode_guest
   address: 2/1/8
+- type: binary
+  entity_id: light.grp_downstairs
+  address: 2/2/26
+- type: binary
+  entity_id: light.grp_upstairs
+  address: 2/2/27
+- type: binary
+  entity_id: input_boolean.wc_motion_disabled
+  address: 2/2/29
+- type: binary
+  entity_id: input_boolean.guest_bathroom_motion_disabled
+  address: 2/2/31
+- type: binary
+  entity_id: input_boolean.keypad_mode_master
+  address: 2/2/32
+- type: binary
+  entity_id: input_boolean.keypad_mode_guest
+  address: 2/2/33
+- type: binary
+  entity_id: input_boolean.laundry_motion_disabled
+  address: 2/2/35

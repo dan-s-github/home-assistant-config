@@ -5,9 +5,7 @@ garage_motion:
   sensor_resets_timer: true
   entity: light.garage_battons
   delay: 120
-  overrides:
-    - input_boolean.garage_motion_disabled
-    - input_boolean.outdoor_brigthness_gt_600
+  override: group.garage_motion_override
   service_data:
     brightness: 100
   night_mode:

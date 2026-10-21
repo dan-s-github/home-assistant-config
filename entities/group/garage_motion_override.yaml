@@ -1,0 +1,11 @@
+---
+# Input boolean group: Garage motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Garage motion overide"
+#unique_id: "832ffbe6-cfbd-4240-9974-b8c3ea8ec06c"
+entities:
+  - input_boolean.entry_outdoor_motion_disabled
+  - input_boolean.outdoor_brigthness_gt_300

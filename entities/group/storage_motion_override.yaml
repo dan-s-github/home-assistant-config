@@ -1,0 +1,10 @@
+---
+# Input boolean group: Storage motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Storage motion override"
+#unique_id: "6e42c276-eaab-4fd5-bd3c-2f265d73a4d6"
+entities:
+  - input_boolean.storage_motion_disabled

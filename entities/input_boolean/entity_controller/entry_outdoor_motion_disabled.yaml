@@ -1,0 +1,7 @@
+---
+# Input boolean: Entry outdoor motion disabled
+#
+# This input boolean will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Entry outdoor motion disabled"

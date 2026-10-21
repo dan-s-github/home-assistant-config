@@ -1,0 +1,10 @@
+---
+# Input boolean group: Laundry motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Laundry motion override"
+#unique_id: "bba91ee2-fe6a-434c-b2e1-f348f0c929ce"
+entities:
+  - input_boolean.laundry_motion_disabled

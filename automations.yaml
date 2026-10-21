@@ -1,15 +1,3 @@
-- id: '1652257933005'
-  alias: Update home.mohni.info IP
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.myip
-  condition: []
-  action:
-  - service: shell_command.update_ddns
-    data: {}
-  mode: single
 - id: '1653559835118'
   alias: Turn off Guest Bathroom HTR
   description: ''
@@ -32,102 +20,32 @@
         hours: 1
         minutes: 0
         seconds: 0
-- id: '1654684563814'
-  alias: Sleep Mode activated
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.knx_sleep_mode
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id:
-    - switch.knx_sleep_mode
-    from: 'on'
-    to: 'off'
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: switch.knx_sleep_mode
-      state: 'on'
-    then:
-    - service: input_boolean.turn_on
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.keypad_mode_house
-        - input_boolean.keypad_mode_master
-        - input_boolean.motion_sensor_main_bathroom
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id: input_boolean.motion_sensor_main_bathroom_disabled
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id:
-        - light.house_excl_guest_zone
-    else:
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.keypad_mode_house
-        - input_boolean.keypad_mode_master
-        - input_boolean.motion_sensor_main_bathroom
-    - service: input_boolean.turn_on
-      data: {}
-      target:
-        entity_id: input_boolean.motion_sensor_main_bathroom_disabled
-  - if:
-    - condition: and
-      conditions:
-      - condition: state
-        entity_id: input_boolean.guest_mode
-        state: 'off'
-      - condition: state
-        entity_id: switch.knx_sleep_mode
-        state: 'on'
-    then:
-    - service: switch.turn_on
-      data: {}
-      target:
-        entity_id: switch.knx_guest_sleep_mode
-  - if:
-    - condition: and
-      conditions:
-      - condition: state
-        entity_id: input_boolean.guest_mode
-        state: 'off'
-      - condition: state
-        entity_id: switch.knx_sleep_mode
-        state: 'off'
-    then:
-    - service: switch.turn_off
-      data: {}
-      target:
-        entity_id: switch.knx_guest_sleep_mode
-  mode: single
 - id: '1654765793972'
   alias: Turn on House Keypads
   description: ''
-  trigger:
-  - platform: time
-    at: 06:00:00
-  condition: []
-  action:
-  - service: input_boolean.turn_off
-    data: {}
+  triggers:
+  - at: 06:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id:
       - input_boolean.keypad_mode_house
       - input_boolean.motion_sensor_main_bathroom
-  - service: input_boolean.turn_on
-    data: {}
+      - input_boolean.motion_sensor_main_bathroom_disabled
+    action: input_boolean.turn_on
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - data: {}
     target:
-      entity_id: input_boolean.motion_sensor_main_bathroom_disabled
+      entity_id:
+      - input_boolean.keypad_mode_house
+      - input_boolean.motion_sensor_main_bathroom
+    action: input_boolean.turn_off
   mode: single
 - id: '1657440634725'
   alias: Turn off Garage Fan
@@ -143,267 +61,955 @@
 - id: '1659243009780'
   alias: Alarm away armed
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - alarm_control_panel.away
     attribute: armed
     from: false
     to: true
-  condition: []
-  action:
-  - service: light.turn_off
-    data: {}
+    trigger: state
+    enabled: false
+  - trigger: alarm_control_panel.armed_away
+    target:
+      entity_id: alarm_control_panel.esphome_aap_alarm_interface_esphome_aap_alarm_panel
+    options:
+      for: 00:00:00
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: light.grp_house
-  - service: notify.dan_signal
-    data:
+    action: light.turn_off
+  - data:
       message: House has been armed
+    action: notify.dan_signal
   mode: single
 - id: '1659516286542'
-  alias: Sliding gate bridge
+  alias: 'Bridge: Sliding gate'
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - switch.sliding_gate
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: switch.sliding_gate
       state: 'on'
     then:
-    - service: switch.toggle
-      data: {}
+    - data: {}
       target:
         entity_id: switch.crow_output_gate
+      action: switch.toggle
   mode: single
 - id: '1659517931531'
-  alias: Garage door bridge
+  alias: 'Bridge: Garage door'
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - switch.garage_door
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: switch.garage_door
       state: 'on'
     then:
-    - service: switch.toggle
-      data: {}
+    - data: {}
       target:
-        entity_id: switch.crow_output_garage_door
+        entity_id:
+        - switch.esphome_aap_alarm_interface_garage_door
+      action: switch.toggle
   mode: single
 - id: '1661053242251'
   alias: Enable Boost mode
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.guest_bathroom_humidity
+  triggers:
+  - entity_id: sensor.guest_bathroom_humidity
     above: '90'
-  - platform: numeric_state
-    entity_id: sensor.main_bathroom_humidity
+    trigger: numeric_state
+  - entity_id: sensor.main_bathroom_humidity
     above: '90'
-  - platform: numeric_state
-    entity_id: sensor.laundry_humidity
+    trigger: numeric_state
+  - entity_id: sensor.laundry_humidity
     above: '90'
-  condition: []
-  action:
-  - service: switch.turn_on
-    data: {}
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: switch.zehnder_boost
+    action: switch.turn_on
   mode: single
 - id: '1661328084704'
   alias: KNX Switch Security
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - switch.security_south_east
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - if:
     - condition: state
       entity_id: switch.security_south_east
       state: 'on'
     then:
-    - service: light.turn_on
-      data: {}
+    - data: {}
       target:
         entity_id: light.security_south_east
+      action: light.turn_on
     else:
-    - service: light.turn_off
-      data: {}
+    - data: {}
       target:
         entity_id: light.security_south_east
-  mode: single
-- id: '1672642198753'
-  alias: Sleep Mode (Guest) activated
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.knx_guest_sleep_mode
-    from: 'off'
-    to: 'on'
-  - platform: state
-    entity_id:
-    - switch.knx_guest_sleep_mode
-    from: 'on'
-    to: 'off'
-  condition: []
-  action:
-  - if:
-    - condition: state
-      entity_id: switch.knx_guest_sleep_mode
-      state: 'on'
-    then:
-    - service: input_boolean.turn_on
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.keypad_mode_guest
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id:
-        - light.guest_zone
-    else:
-    - service: input_boolean.turn_off
-      data: {}
-      target:
-        entity_id:
-        - input_boolean.keypad_mode_guest
+      action: light.turn_off
   mode: single
 - id: '1673061477362'
   alias: 'Set Turn On Living Pendant Brightness '
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - light.living_pendant
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 80
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      brightness_pct: 90
     target:
       entity_id: light.living_pendant
+    action: light.turn_on
   mode: single
 - id: '1673249567666'
   alias: Set Turn On Master Downlights Brightness
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - light.master_downlights
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 80
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      brightness_pct: 70
     target:
       entity_id: light.master_downlights
+    action: light.turn_on
   mode: single
 - id: '1673333887007'
   alias: Test Signal notification
   description: ''
-  trigger: []
-  condition: []
-  action:
-  - service: notify.dan_signal
-    data:
+  triggers: []
+  conditions: []
+  actions:
+  - data:
       message: Signal notification test
       title: Test
-  mode: single
-- id: '1673334623130'
-  alias: KLF reboot on hass shutdown
-  description: Velux KLF200 Gateway
-  trigger:
-  - platform: homeassistant
-    event: shutdown
-  condition: []
-  action:
-  - service: velux.reboot_gateway
-    data: {}
+    action: notify.dan_signal
   mode: single
 - id: '1673500227074'
   alias: Alarm away disarmed
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - alarm_control_panel.away
     attribute: armed
     from: true
     to: false
-  condition: []
-  action:
-  - service: notify.dan_signal
-    data:
+    trigger: state
+    enabled: false
+  - trigger: alarm_control_panel.disarmed
+    target:
+      entity_id: alarm_control_panel.esphome_aap_alarm_interface_esphome_aap_alarm_panel
+    options:
+      for: 00:00:00
+  conditions: []
+  actions:
+  - data:
       message: House has been disarmed
+    action: notify.dan_signal
   mode: single
 - id: '1673898775186'
   alias: Re-trigger brightness watcher
   description: ''
-  trigger:
-  - platform: homeassistant
-    event: start
-  condition: []
-  action:
-  - service: input_boolean.turn_off
-    data: {}
+  triggers:
+  - event: start
+    trigger: homeassistant
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id:
       - input_boolean.outdoor_brigthness_gt_100
       - input_boolean.outdoor_brigthness_gt_200
       - input_boolean.outdoor_brigthness_gt_300
       - input_boolean.outdoor_brigthness_gt_600
-  - service: automation.trigger
-    data: {}
+    action: input_boolean.turn_off
+  - data: {}
     target:
       entity_id: automation.outdoor_brigthness_watcher
+    action: automation.trigger
   mode: single
 - id: '1673927543705'
   alias: Alarm triggered notification
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - alarm_control_panel.away
     attribute: alarm
     to: true
-  condition: []
-  action:
-  - service: notify.dan_signal
-    data:
+    trigger: state
+  conditions: []
+  actions:
+  - data:
       message: Alarm has been triggered
+    action: notify.dan_signal
   mode: single
 - id: '1673928028407'
   alias: Home Power Supply
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.crow_alarm_system
     attribute: mains
-  condition:
+    trigger: state
+  conditions:
   - condition: template
     value_template: '{{ trigger.from_state.state != ''unknown'' }}'
-  action:
-  - service: notify.dan_signal
-    data_template:
+  actions:
+  - data_template:
       message: '{% if is_state(''trigger.to_state.state'',''True'') %}  Power Back
         On...  {% else %} Power Cut!!! {% endif %}
 
         '
+    action: notify.dan_signal
+  mode: single
+- id: '1674855813710'
+  alias: Turn Off Security lights during day
+  description: ''
+  triggers:
+  - entity_id:
+    - light.security_south_east
+    - light.security_north_east
+    from: 'off'
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  - condition: numeric_state
+    entity_id: sensor.st_00127484_illuminance
+    above: 300
+    enabled: true
+  actions:
+  - data: {}
+    target:
+      entity_id:
+      - light.security_north_east
+      - light.security_south_east
+    action: light.turn_off
+  mode: single
+- id: '1679385783744'
+  alias: Entry Door left open notification
+  description: ''
+  triggers:
+  - type: problem
+    device_id: b977484604bd37f9e3f74c7804b75550
+    entity_id: binary_sensor.door_window_sensor_3ea5_door_left_open
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      message: Entry Door left open
+    action: notify.dan_signal
+  mode: single
+- id: '1683708517965'
+  alias: Entry Door left open resolved notification
+  description: ''
+  triggers:
+  - type: no_problem
+    device_id: b977484604bd37f9e3f74c7804b75550
+    entity_id: binary_sensor.door_window_sensor_3ea5_door_left_open
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      message: Entry Door closed
+    action: notify.dan_signal
+  mode: single
+- id: '1685842769395'
+  alias: 'Bridge: Downstairs Light'
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.downstairs_light
+    from: 'on'
+    to: 'off'
+    trigger: state
+    enabled: false
+  - trigger: switch.turned_off
+    target:
+      entity_id: switch.downstairs_light
+    options:
+      for: 00:00:00
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: light.grp_downstairs
+      state: 'on'
+    then:
+    - data: {}
+      target:
+        entity_id: light.grp_downstairs
+      action: light.turn_off
+  mode: single
+- id: '1685847758767'
+  alias: 'Bridge: Upstairs light'
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.upstairs_light
+    from: 'on'
+    to: 'off'
+    trigger: state
+    enabled: false
+  - trigger: switch.turned_off
+    target:
+      entity_id: switch.upstairs_light
+    options:
+      for: 00:00:00
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: light.grp_upstairs
+      state: 'on'
+    then:
+    - data: {}
+      target:
+        entity_id: light.grp_upstairs
+      action: light.turn_off
+  mode: single
+- id: '1690361756579'
+  alias: AlphaESS Enable Grid Charging Battery
+  description: ''
+  triggers:
+  - at: 02:00:00
+    trigger: time
+  - at: '16:00:00'
+    trigger: time
+  conditions:
+  - alias: Confirm AL2002118050331_State of Charge is below Grid Charging Threshold
+    condition: numeric_state
+    entity_id: sensor.al2002118050331_instantaneous_battery_soc
+    below: input_number.grid_charging_threshold
+  actions:
+  - data:
+      enabled: true
+      cp1start: 02:00
+      cp1end: 05:00
+      cp2start: '16:00'
+      cp2end: '17:00'
+      chargestopsoc: 100
+      serial: AL2002118050331
+    action: alphaess.setbatterycharge
+  - data: {}
+    target:
+      entity_id: input_boolean.al2002118050331_grid_charging_battery
+    action: input_boolean.turn_on
+  mode: single
+- id: '1690364695644'
+  alias: AlphaESS Disable Grid Charging Battery
+  description: ''
+  triggers:
+  - alias: When AL2002118050331_State of Charge is above Grid Charging Threshold
+    entity_id:
+    - sensor.al2002118050331_instantaneous_battery_soc
+    above: input_number.grid_charging_threshold
+    trigger: numeric_state
+  - trigger: time
+    at: 04:00:00
+  - trigger: time
+    at: '17:00:00'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.al2002118050331_grid_charging_battery
+    state: 'on'
+  actions:
+  - data:
+      enabled: false
+      cp1start: 03:00
+      cp1end: 04:00
+      cp2start: '16:00'
+      cp2end: '17:00'
+      chargestopsoc: 50
+      serial: AL2002118050331
+    alias: 'Call a service ''Alpha ESS: Set Battery Charge'' off'
+    action: alphaess.setbatterycharge
+  - data: {}
+    target:
+      entity_id: input_boolean.al2002118050331_grid_charging_battery
+    action: input_boolean.turn_off
+  mode: single
+- id: '1692481651406'
+  alias: Outdoor brigthness watcher UI
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.st_00127484_illuminance
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        below: '100'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '100'
+        below: '200'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+        action: input_boolean.turn_on
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '200'
+        below: '300'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+        action: input_boolean.turn_on
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '300'
+        below: '600'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+        action: input_boolean.turn_on
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_600
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '600'
+        below: '900'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+        action: input_boolean.turn_on
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_900
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '900'
+        below: '1200'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+          - input_boolean.outdoor_brigthness_gt_900
+        action: input_boolean.turn_on
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_1200
+        action: input_boolean.turn_off
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.st_00127484_illuminance
+        above: '1200'
+      sequence:
+      - data: {}
+        target:
+          entity_id:
+          - input_boolean.outdoor_brigthness_gt_100
+          - input_boolean.outdoor_brigthness_gt_200
+          - input_boolean.outdoor_brigthness_gt_300
+          - input_boolean.outdoor_brigthness_gt_600
+          - input_boolean.outdoor_brigthness_gt_900
+          - input_boolean.outdoor_brigthness_gt_1200
+        action: input_boolean.turn_on
+    default: []
+  mode: single
+- id: '1702885775469'
+  alias: Open western blinds at 10:00 PM
+  description: ''
+  triggers:
+  - at: '22:00:00'
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.western_blinds_closed
+    state: 'on'
+  actions:
+  - target:
+      entity_id: cover.western_blinds
+    data: {}
+    action: cover.open_cover
+  mode: single
+- id: '1735454165472'
+  alias: Turn off Deck North workaround
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.deck_north
+    to: 'on'
+    from: 'off'
+  conditions:
+  - condition: state
+    entity_id: automation.sleep_mode_activated
+    state: 'on'
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.deck_north
+  mode: single
+- id: '1754195805593'
+  alias: Battery Charge - Low Spot Price
+  description: Enable battery charging when electricity spot price is below threshold
+  triggers:
+  - minutes: /15
+    trigger: time_pattern
+    enabled: false
+  - entity_id:
+    - sensor.em6_energy_price
+    trigger: state
+  conditions:
+  - condition: time
+    after: '18:00:00'
+    before: 06:00:00
+  - condition: numeric_state
+    entity_id: sensor.em6_energy_price
+    below: input_number.spot_price_charging_threshold
+  - condition: numeric_state
+    entity_id: sensor.al2002118050331_instantaneous_battery_soc
+    below: input_number.grid_charging_threshold
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.al2002118050331_grid_charge_enabled
+    data: {}
+  - data:
+      title: Battery Charging Started
+      message: 'Spot price: ${{ states(''sensor.em6_energy_price'') }}/kWh - Charging
+        enabled'
+    action: notify.dan_signal
+    enabled: false
+  mode: single
+  trace:
+    stored_traces: 48
+- id: '1754195830846'
+  alias: Battery Charge - High Spot Price Stop
+  description: Disable battery charging when spot price exceeds threshold
+  triggers:
+  - minutes: /15
+    trigger: time_pattern
+    enabled: false
+  - entity_id:
+    - sensor.em6_energy_price
+    trigger: state
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.em6_energy_price
+    above: input_number.spot_price_stop_threshold
+  - condition: state
+    entity_id: switch.al2002118050331_grid_charge_enabled
+    state:
+    - 'on'
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.al2002118050331_grid_charge_enabled
+    data: {}
+  - data:
+      title: Battery Charging Stopped
+      message: 'Spot price: ${{ states(''sensor.em6_energy_price'') }}/kWh - Charging
+        disabled'
+    action: notify.dan_signal
+    enabled: false
+  mode: single
+  trace:
+    stored_traces: 48
+- id: '1754195901077'
+  alias: Battery Charge - Full Protection
+  description: Stop charging when battery reaches maximum level
+  triggers:
+  - entity_id:
+    - sensor.al2002118050331_instantaneous_battery_soc
+    above: input_number.grid_charging_threshold
+    trigger: numeric_state
+  conditions:
+  - condition: state
+    entity_id: switch.al2002118050331_grid_charge_enabled
+    state:
+    - 'on'
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.al2002118050331_grid_charge_enabled
+    data: {}
+  - data:
+      title: Battery Charging Complete
+      message: Battery reached {{ states('sensor.al2002118050331_instantaneous_battery_soc')
+        }}% - Charging stopped
+    action: notify.dan_signal
+    enabled: false
+  mode: single
+- id: '1760243072904'
+  alias: Reload EM6
+  description: Reloads EM6 Integration after a ha restart at xx:02 or xx:32 in the
+    first hour after a restart
+  triggers:
+  - trigger: homeassistant
+    event: start
+  conditions: []
+  actions:
+  - wait_template: '{{ now().minute == 2 or now().minute == 32 }}'
+    continue_on_timeout: true
+    timeout: 01:00:00
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: wait.trigger.timeout
+      sequence:
+      - action: persistent_notification.create
+        metadata: {}
+        data:
+          title: EM6 Integration Restart Timeout
+          message: Timeout waiting for xx:02 or xx:32 minute mark to restart EM6 integration
+          notification_id: em6_integration_restart_timeout
+    default:
+    - action: homeassistant.reload_config_entry
+      data:
+        entry_id: 01K7AT1F0KR8CRA7Y2PP1QN3GS
+  mode: single
+- id: '1765768932534'
+  alias: KLF reboot on hass shutdown
+  description: ''
+  triggers:
+  - trigger: homeassistant
+    event: shutdown
+  conditions: []
+  actions:
+  - device_id: 21fc9b6707b2e8d418dadd18da94e667
+    domain: button
+    entity_id: 8ea7f00d20606f7b0c859148c3a1a43f
+    type: press
+    metadata:
+      secondary: true
+  mode: single
+- id: '1768702923475'
+  alias: 'Disable Motion Detection: WC'
+  description: ''
+  triggers:
+  - trigger: knx.telegram
+    destination: 2/2/28
+    group_value_read: false
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.wc_motion_disabled
+        state:
+        - 'off'
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        target:
+          entity_id: input_boolean.wc_motion_disabled
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.wc_motion_disabled
+        state:
+        - 'on'
+      sequence:
+      - action: input_boolean.turn_off
+        metadata: {}
+        target:
+          entity_id: input_boolean.wc_motion_disabled
+        data: {}
+  mode: single
+- id: '1768703744132'
+  alias: 'Disable Motion Detection: Guest Bath'
+  description: ''
+  triggers:
+  - trigger: knx.telegram
+    destination: 2/2/30
+    group_value_read: false
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.guest_bathroom_motion_disabled
+        state:
+        - 'off'
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        target:
+          entity_id: input_boolean.guest_bathroom_motion_disabled
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.guest_bathroom_motion_disabled
+        state:
+        - 'on'
+      sequence:
+      - action: input_boolean.turn_off
+        metadata: {}
+        target:
+          entity_id: input_boolean.guest_bathroom_motion_disabled
+        data: {}
+  mode: single
+- id: '1768707970802'
+  alias: Sleep Mode activated
+  description: ''
+  triggers:
+  - trigger: knx.telegram
+    destination: 2/2/0
+    group_value_read: false
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: input_boolean.keypad_mode_master
+      state: 'off'
+    then:
+    - data: {}
+      target:
+        entity_id:
+        - input_boolean.keypad_mode_house
+        - input_boolean.keypad_mode_master
+        - input_boolean.motion_sensor_main_bathroom
+      action: input_boolean.turn_on
+    - data: {}
+      target:
+        entity_id: input_boolean.motion_sensor_main_bathroom_disabled
+      action: input_boolean.turn_off
+    - data: {}
+      target:
+        entity_id:
+        - light.house_excl_guest_zone
+      action: light.turn_off
+    else:
+    - data: {}
+      target:
+        entity_id:
+        - input_boolean.keypad_mode_house
+        - input_boolean.keypad_mode_master
+        - input_boolean.motion_sensor_main_bathroom
+      action: input_boolean.turn_off
+    - data: {}
+      target:
+        entity_id: input_boolean.motion_sensor_main_bathroom_disabled
+      action: input_boolean.turn_on
+  - if:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state:
+      - 'off'
+    then:
+    - if:
+      - condition: state
+        entity_id: input_boolean.keypad_mode_house
+        state:
+        - 'on'
+      then:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.keypad_mode_guest
+        data: {}
+      - action: light.turn_off
+        target:
+          entity_id:
+          - light.guest_zone
+        data: {}
+      else:
+      - action: input_boolean.turn_off
+        metadata: {}
+        target:
+          entity_id: input_boolean.keypad_mode_guest
+        data: {}
+  mode: single
+- id: '1768708610366'
+  alias: Sleep Mode (Guest) activated
+  description: ''
+  triggers:
+  - trigger: knx.telegram
+    destination: 2/2/25
+    group_value_read: false
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: input_boolean.keypad_mode_guest
+      state: 'off'
+    then:
+    - data: {}
+      target:
+        entity_id:
+        - input_boolean.keypad_mode_guest
+      action: input_boolean.turn_on
+    - data: {}
+      target:
+        entity_id:
+        - light.guest_zone
+      action: light.turn_off
+    else:
+    - data: {}
+      target:
+        entity_id:
+        - input_boolean.keypad_mode_guest
+      action: input_boolean.turn_off
+  mode: single
+- id: '1769222899515'
+  alias: 'Disable Motion Detection: Laundry'
+  description: ''
+  triggers:
+  - trigger: knx.telegram
+    destination: 2/2/34
+    group_value_read: false
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.laundry_motion_disabled
+        state:
+        - 'off'
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.laundry_motion_disabled
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.laundry_motion_disabled
+        state:
+        - 'on'
+      sequence:
+      - action: input_boolean.turn_off
+        metadata: {}
+        target:
+          entity_id:
+          - input_boolean.laundry_motion_disabled
+        data: {}
+  mode: single
+- id: '1780559117026'
+  alias: Reloads ElectricityInfo
+  description: Reloads ElectricityInfo Integration after a HA restart, waiting for
+    the next xx:x1 or xx:x6 minute mark (1 minute past each 5-minute price update)
+    within the first hour after restart. Notifies if no such mark occurs within the
+    hour.
+  triggers:
+  - trigger: homeassistant
+    event: start
+  conditions: []
+  actions:
+  - wait_template: '{{ now().minute % 5 == 1 }}'
+    continue_on_timeout: true
+    timeout: 01:00:00
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: wait.trigger.timeout
+      sequence:
+      - action: persistent_notification.create
+        metadata: {}
+        data:
+          title: Electricityinfo Integration Restart Timeout
+          message: Timeout waiting for the next xx:x1 or xx:x6 minute mark to restart
+            Electricityinfo integration
+          notification_id: electricityinfo_reload_timeout
+    default:
+    - action: homeassistant.reload_config_entry
+      data:
+        entry_id: 01KR5JS5RK2VH4W52RZPXW4PAT
+  mode: single
+- id: '1790476187168'
+  alias: 'Weekly start of Let''s Encrypt App '
+  description: ''
+  triggers:
+  - trigger: time
+    at: 01:00:00
+    weekday:
+    - sun
+  conditions: []
+  actions:
+  - action: hassio.app_start
+    metadata: {}
+    data:
+      app: core_letsencrypt
   mode: single

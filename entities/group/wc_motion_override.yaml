@@ -1,0 +1,10 @@
+---
+# Input boolean group: WC motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: WC motion override"
+#unique_id: "ed253ad0-de6a-4b10-9498-22b062300975"
+entities:
+  - input_boolean.wc_motion_disabled

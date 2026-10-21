@@ -1,0 +1,8 @@
+---
+# Input boolean: Guest Mode
+#
+# This mode is to enable the Guest mode to be used in automations
+name: "Sleep Mode"
+#icon: >
+#  if (state === 'on') return 'mdi:weather-night';
+#  return 'mdi:weather-sunny'

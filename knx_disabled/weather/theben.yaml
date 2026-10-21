@@ -1,0 +1,9 @@
+---
+# - name: Weather Station
+#   address_brightness_west: 1/0/0
+#   address_brightness_south: 1/0/1
+#   address_brightness_north: 1/0/2
+#   address_temperature: 1/0/4
+#   address_wind_speed: 1/0/5
+#   address_rain_alarm: 1/0/6
+#   sync_state: true

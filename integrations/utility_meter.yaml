@@ -1,0 +1,38 @@
+---
+#
+# https://www.home-assistant.io/integrations/utility_meter/
+#
+utility_meter:
+  al2002118050331_grid_import_30m:
+    unique_id: c21b2774-1098-40e1-9d1d-81eec4bec3fb
+    source: sensor.alpha_ess_energy_statistics_al2002118050331_grid_import_energy
+    cron: "0,30 * * * *"
+
+  al2002118050331_grid_export_30m:
+    unique_id: 561e8957-58d7-4159-89f4-89a627798f37
+    source: sensor.alpha_ess_energy_statistics_al2002118050331_grid_export_energy
+    cron: "0,30 * * * *"
+
+  al2002118050331_grid_consumption_30m:
+    name: 30m Grid Import
+    unique_id: 4d5bc15a-8bd2-4324-a7c1-b86e261c7bf4
+    source: sensor.al2002118050331_daily_grid_consumption
+    cron: "0,30 * * * *"
+
+  al2002118050331_grid_feed_in_30m:
+    name: 30m Grid Export
+    unique_id: b07d5178-89b3-4c61-92ff-7f5d8a2640bf
+    source: sensor.al2002118050331_daily_feed_in
+    cron: "0,30 * * * *"
+
+  al2002118050331_monthly_grid_import:
+    name: Monthly Grid Import
+    unique_id: f9edaf14-5150-465e-a328-5a47170203c9
+    source: sensor.al2002118050331_daily_grid_consumption
+    cycle: monthly
+
+  al2002118050331_monthly_grid_export:
+    name: Monthly Grid Export
+    unique_id: 863ea017-9eb1-41a7-904c-006cc98ac2b8
+    source: sensor.al2002118050331_daily_feed_in
+    cycle: monthly

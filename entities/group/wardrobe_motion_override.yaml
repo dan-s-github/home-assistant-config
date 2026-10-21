@@ -1,0 +1,11 @@
+---
+# Input boolean group: Wardrobe motion override
+#
+# This input boolean group will disable the motion automation when it
+# is configured as override in the entity controller configuration
+#
+name: "EC: Wardrobe motion override"
+#unique_id: "b55ec747-e33e-40f4-a1b9-7fe197d81471"
+entities:
+  - input_boolean.wardrobe_motion_disabled
+  - input_boolean.outdoor_brigthness_gt_600
