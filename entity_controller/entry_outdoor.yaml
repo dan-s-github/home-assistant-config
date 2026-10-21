@@ -1,8 +1,6 @@
 ---
 entry_outdoor:
-  sensors:
-    - binary_sensor.ds_7608ni_i2_8p0820210719ccrrg36992304wcvu_1_fielddetection
-    - binary_sensor.ds_7608ni_i2_8p0820210719ccrrg36992304wcvu_1_linedetection
+  sensors: binary_sensor.ec_entry_outdoor_sensor
   sensor_type: duration
   sensor_resets_timer: true
   entity: light.entry_outdoor

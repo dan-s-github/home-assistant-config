@@ -1,9 +1,9 @@
 ---
 - trigger:
-    - platform: time_pattern
+    - trigger: time_pattern
       minutes: "/15"
   action:
-    - service: weather.get_forecasts
+    - action: weather.get_forecasts
       target:
         entity_id:
           - weather.forecast_66_whitney
@@ -40,7 +40,7 @@
 
     - name: weatherflow_forecast_0
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[0].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[0].precipitation_probability }}%"
@@ -68,6 +68,8 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
         {% set icon = array[forecast[0].condition] %}
         mdi:weather-{{ icon }}
@@ -77,7 +79,7 @@
 
     - name: weatherflow_forecast_1
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[2].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[2].precipitation_probability }}%"
@@ -105,13 +107,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
         {% set icon = array[forecast[2].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_2
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[4].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[4].precipitation_probability }}%"
@@ -125,7 +129,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[4].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -139,13 +143,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[4].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_3
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[6].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[6].precipitation_probability }}%"
@@ -159,7 +165,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[6].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -173,13 +179,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[6].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_4
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[8].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[8].precipitation_probability }}%"
@@ -193,7 +201,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[8].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -207,13 +215,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[8].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_5
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[10].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[10].precipitation_probability }}%"
@@ -227,7 +237,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[10].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -241,13 +251,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[10].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_6
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[12].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[12].precipitation_probability }}%"
@@ -261,7 +273,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[12].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -275,13 +287,15 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[12].condition] %}
         mdi:weather-{{ icon }}
 
     - name: weatherflow_forecast_7
       attributes:
-        time: >-
+        slot_time: >-
           {% set time =  forecast[14].datetime | as_datetime | as_local | default(0,true) %}
           {{ time | as_timestamp | timestamp_custom('%-H:00') | replace('M','') | lower }}
         precip: "{{ forecast[14].precipitation_probability }}%"
@@ -295,7 +309,7 @@
           {% else %}0
           {% endif %}
       unit_of_measurement: °
-      state: "{{ forecast[2].temperature | int(0) }}"
+      state: "{{ forecast[14].temperature | int(0) }}"
       icon: >
         {% set array = { 'clear-night':'night',
                           'cloudy':'cloudy',
@@ -309,6 +323,8 @@
                           'snowy':'snowy',
                           'snowy-rainy':'snowy-rainy',
                           'sunny':'sunny',
+                          'pouring':'pouring',
+                          'windy-variant':'windy-variant',
                           'windy':'windy' } %}
-        {% set icon = array[forecast[2].condition] %}
+        {% set icon = array[forecast[14].condition] %}
         mdi:weather-{{ icon }}

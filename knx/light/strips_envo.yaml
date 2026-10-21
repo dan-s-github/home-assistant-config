@@ -1,0 +1,10 @@
+---
+- name: ENVO Test
+  address: 0/1/246
+  state_address: 0/1/249
+  brightness_address: 0/1/248
+  brightness_state_address: 0/1/250
+  #rgbw_address: 0/1/251
+  #rgbw_state_address: 0/1/252
+  xyy_address: 0/1/251
+  xyy_state_address: 0/1/252

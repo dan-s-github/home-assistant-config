@@ -1,7 +1,7 @@
 - sensor:
     - name: "EM6 Spot Power Price NZD"
       unit_of_measurement: "NZD/kWh"
-      state: "{{ (states('sensor.em6_energy_price') | float) }}"
+      state: "{{ (states('sensor.em6_energy_price') | default(1) | float(0)) }}"
     - name: "EM6 Spot Power Price NZ¢"
       unit_of_measurement: "¢/kWh"
-      state: "{{ (states('sensor.em6_energy_price') | float * 100 ) }}"
+      state: "{{ (states('sensor.em6_energy_price') | default(1) | float(0) * 100 ) }}"

@@ -5,8 +5,7 @@ wc_motion:
   sensor_resets_timer: true
   entity: light.wc_pendant
   delay: 300
-  overrides:
-    - group.wc_motion_override
+  override: group.wc_motion_override
   service_data:
     brightness: 254
   night_mode:

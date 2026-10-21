@@ -8,4 +8,4 @@ recorder:
   exclude:
     entities:
       - sensor.weatherflow_hourly
-  
+      - sensor.f1_season_results
